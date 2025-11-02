@@ -1,7 +1,12 @@
 import React from 'react'
+import { HeroSection } from '../_components/HeroSection'
+import { NavigationMenuDemo } from '../_components/Navbar'
 
-export default function page() {
+export default function LandingPage() {
   return (
-    <div>page</div>
+    <div>
+      <NavigationMenuDemo />
+      <HeroSection />
+    </div>
   )
 }
