@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { Home, AlertCircle, Cpu } from "lucide-react";
 import { GlassButton } from "../components/ui/glass-button";
+import { Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 
 export default function NotFound() {
@@ -75,8 +76,8 @@ export default function NotFound() {
       </div>
 
       <div className="max-w-2xl mx-auto text-center relative z-10">
-        {/* Glassmorphism Card - Adjusted max-w-lg to max-w-2xl */}
-        <div className="relative overflow-hidden border border-emerald-500/20 bg-black/40 backdrop-blur-md rounded-3xl p-8">
+        {/* Glassmorphism Card - Using shadcn Card component */}
+        <Card className="relative overflow-hidden border border-emerald-500/20 bg-black/40 backdrop-blur-md rounded-3xl p-8">
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full filter blur-3xl"></div>
           
           <div className="relative">
@@ -133,7 +134,7 @@ export default function NotFound() {
               transition={{ delay: 0.4 }}
             >
               <p className="text-gray-300 mb-3 text-sm max-w-md mx-auto">
-                Halaman yang Anda cari telah di-terminate atau tidak ada dalam antrian sistem. 
+                Halaman yang Anda cari telah di-terminated atau tidak ada dalam antrian sistem. 
                 Mungkin halaman tersebut sedang mengalami deadlock atau sudah selesai dieksekusi.
               </p>
               <p className="text-gray-400 text-sm mb-8">
@@ -237,7 +238,7 @@ export default function NotFound() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7 }}
             >
-              <GlassButton onClick={handleGoHome} size="default">
+              <GlassButton onClick={handleGoHome}>
                 <Home className="w-4 h-4" />
                 Kembali ke Scheduler
               </GlassButton>
@@ -248,7 +249,7 @@ export default function NotFound() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="mt-8 pt-6 border-t border-emerald-500/20"
+              className="mt-6 pt-4 border-t border-emerald-500/20"
             >
               <div className="text-xs text-gray-400 mb-3">Ready Queue:</div>
               <div className="flex items-center justify-center gap-2">
@@ -274,7 +275,7 @@ export default function NotFound() {
               </div>
             </motion.div> */}
           </div>
-        </div>
+        </Card>
       </div>
 
       <style>{`
