@@ -5,7 +5,7 @@ import { GlassButton } from "../../components/ui/glass-button";
 
 export function HeroSection() {
   return (
-    <div className="relative flex h-[33rem] w-full overflow-hidden rounded-md antialiased md:items-center md:justify-center">
+    <div className="relative flex h-screen w-full overflow-hidden rounded-md antialiased md:items-center md:justify-center">
       {/* Mesh Gradient Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900"></div>
@@ -25,7 +25,7 @@ export function HeroSection() {
         className="-top-40 left-0 md:-top-20 md:left-60"
         fill="white"
       />
-      <div className="relative z-10 mx-auto w-full max-w-5xl p-4 pt-12">
+      <div className="relative z-10 mx-auto w-full max-w-5xl p-4 pt-12 text-neutral-300">
         <h1 className="bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text text-center text-3xl font-bold md:text-5xl">
           Visualisasikan Algoritma Penjadwalan CPU Secara Interaktif
         </h1>
