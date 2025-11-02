@@ -25,7 +25,7 @@ export function HeroSection() {
         className="-top-40 left-0 md:-top-20 md:left-60"
         fill="white"
       />
-      <div className="relative z-10 mx-auto w-full max-w-5xl p-4 pt-12">
+      <div className="relative z-10 mx-auto w-full max-w-5xl p-4 pt-12 text-neutral-300">
         <h1 className="bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text text-center text-3xl font-bold md:text-5xl">
           Visualisasikan Algoritma Penjadwalan CPU Secara Interaktif
         </h1>
