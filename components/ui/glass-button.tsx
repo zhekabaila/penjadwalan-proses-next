@@ -11,7 +11,7 @@ interface GlassButtonProps {
 export const GlassButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, GlassButtonProps>(
   ({ children, onClick, className = "", size = "default", href }, ref) => {
     const sizeClasses = {
-      default: "px-6 py-2 text-base",
+      default: "px-4 py-2 text-base",
       lg: "px-8 py-3 text-lg",
     };
 

@@ -25,14 +25,14 @@ export function HeroSection() {
         className="-top-40 left-0 md:-top-20 md:left-60"
         fill="white"
       />
-      <div className="relative z-10 mx-auto w-full max-w-5xl p-4 pt-12 text-neutral-300">
-        <h1 className="bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text text-center text-3xl font-bold md:text-5xl">
-          Visualisasikan Algoritma Penjadwalan CPU Secara Interaktif
+      <div className="relative z-10 mx-auto w-full max-w-5xl p-4 pt-8 text-neutral-300">
+        <h1 className="bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text text-center text-3xl font-bold md:text-5xl mb-2">
+          Visualisasikan Algoritma <br/> Manajemen Proses Secara Interaktif
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-center text-base font-normal text-neutral-300">
-          Pernah bingung bagaimana sistem operasi memutuskan proses mana yang harus dijalankan? Proyek ini mengubah teori penjadwalan proses yang kompleks menjadi visualisasi yang sederhana dan mudah dipahami. Lihat FCFS, SJF, dan Round Robin berjalan secara real-time.
+          Bingung bagaimana sistem operasi memutuskan proses mana yang harus dijalankan? <br/> Proyek ini mengubah teori manajemen proses yang kompleks menjadi visualisasi yang sederhana dan mudah dipahami. Lihat FCFS, SJF, dan Round Robin berjalan secara real-time.
         </p>
-        <div className="mt-8 flex justify-center">
+        <div className="mt-4 flex justify-center">
           <GlassButton href="/scheduler">Mulai Eksplorasi</GlassButton>
         </div>
       </div>

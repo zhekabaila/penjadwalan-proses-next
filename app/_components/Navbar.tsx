@@ -10,8 +10,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const navItems = [
   { title: "Home", href: "/", icon: Home },
-  { title: "Scheduler", href: "/scheduler", icon: Cpu },
-  { title: "Settings", href: "/settings", icon: Settings },
+  { title: "Fitur", href: "/scheduler", icon: Cpu },
+  { title: "Preview", href: "/settings", icon: Settings },
 ];
 
 export function NavigationMenuDemo() {
@@ -19,7 +19,7 @@ export function NavigationMenuDemo() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
-      <div className="container flex h-16 items-center justify-between px-4 sm:px-6">
+      <div className="flex h-16 items-center justify-between px-4 sm:px-6">
         {/* Logo - Visible on both mobile and desktop */}
         <Link href="/" className="flex items-center space-x-2">
           <Cpu className="h-6 w-6 text-emerald-500" />
@@ -84,7 +84,7 @@ export function NavigationMenuDemo() {
                         )}
                         onClick={() => setIsOpen(false)}
                       >
-                        <Icon className="mr-3 h-5 w-5" />
+                        <Icon className="h-5 w-5" />
                         <span>{item.title}</span>
                       </Link>
                     );
