@@ -5,7 +5,7 @@ import { GlassButton } from "../../components/ui/glass-button";
 
 export function HeroSection() {
   return (
-    <div className="relative flex h-[33rem] w-full overflow-hidden rounded-md antialiased md:items-center md:justify-center">
+    <div className="relative flex h-screen w-full overflow-hidden rounded-md antialiased md:items-center md:justify-center">
       {/* Mesh Gradient Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900"></div>
