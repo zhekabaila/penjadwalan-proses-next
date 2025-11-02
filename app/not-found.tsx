@@ -66,7 +66,7 @@ export default function NotFound() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden flex items-center justify-center px-4">
+    <div className="h-screen relative overflow-hidden flex items-center justify-center px-4">
       {/* Mesh Gradient Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900"></div>
@@ -75,9 +75,9 @@ export default function NotFound() {
         <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-teal-700 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="max-w-2xl mx-auto text-center relative z-10">
+      <div className="w-full max-w-2xl mx-auto text-center relative z-10 px-2">
         {/* Glassmorphism Card - Using shadcn Card component */}
-        <Card className="relative overflow-hidden border border-emerald-500/20 bg-black/40 backdrop-blur-md rounded-3xl p-8">
+        <Card className="relative overflow-hidden border border-emerald-500/20 bg-black/40 backdrop-blur-md rounded-3xl p-3 sm:p-6 md:p-8">
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full filter blur-3xl"></div>
           
           <div className="relative">
@@ -86,10 +86,10 @@ export default function NotFound() {
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="inline-block mb-2"
+              className="inline-block mb-1"
             >
               <div className="relative">
-                <Cpu className="w-16 h-16 text-emerald-500 mx-auto" />
+                <Cpu className="w-10 h-10 sm:w-16 sm:h-16 text-emerald-500 mx-auto" />
                 <motion.div
                   animate={{
                     scale: [1, 1.2, 1],
@@ -111,7 +111,7 @@ export default function NotFound() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <h1 className="text-white mb-4 text-4xl font-bold">
+              <h1 className="text-white mb-2 sm:mb-4 text-2xl sm:text-4xl font-bold">
                 <span>404</span>
               </h1>
             </motion.div>
@@ -122,9 +122,9 @@ export default function NotFound() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <AlertCircle className="w-5 h-5 text-emerald-400" />
-                <h2 className="text-white">Proses Tidak Ditemukan</h2>
+              <div className="flex items-center justify-center gap-1 sm:gap-2 mb-2 sm:mb-4">
+                <AlertCircle className="w-3 h-3 sm:w-5 sm:h-5 text-emerald-400" />
+                <h2 className="text-white text-xs sm:text-base">Proses Tidak Ditemukan</h2>
               </div>
             </motion.div>
 
@@ -133,11 +133,11 @@ export default function NotFound() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              <p className="text-gray-300 mb-3 text-sm max-w-md mx-auto">
+              <p className="text-gray-300 mb-1 sm:mb-2 text-sm sm:text-sm max-w-md mx-auto">
                 Halaman yang Anda cari telah di-terminated atau tidak ada dalam antrian sistem. 
                 Mungkin halaman tersebut sedang mengalami deadlock atau sudah selesai dieksekusi.
               </p>
-              <p className="text-gray-400 text-sm mb-8">
+              <p className="text-gray-400 text-xs sm:text-xs mb-2 sm:mb-4">
                 Error Code: <span className="text-emerald-400 font-mono">PAGE_NOT_IN_QUEUE</span>
               </p>
             </motion.div>
@@ -147,11 +147,11 @@ export default function NotFound() {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="flex items-center justify-center gap-6 mb-8"
-            > {/* Reduced gap from 6 to 4 */}
-              <div className="text-center">
-                <div className="text-sm text-gray-400 mb-1">CPU Cores</div>
-                <div className="flex items-center justify-center gap-2">
+              className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-2 sm:mb-4"
+            > {/* Reduced gap and made responsive */}
+              <div className="text-center flex-shrink-0">
+                <div className="text-[0.6rem] sm:text-sm text-gray-400 mb-0.5 sm:mb-1">CPU Cores</div>
+                <div className="flex items-center justify-center gap-1">
                   <motion.div
                     animate={{
                       backgroundColor: ["#10b981", "#059669", "#10b981"],
@@ -160,51 +160,54 @@ export default function NotFound() {
                       duration: 1.5,
                       repeat: Infinity,
                     }}
-                    className="w-2 h-2 rounded-full"
+                    className="w-1.5 h-1.5 rounded-full"
                   /> {/* Reduced size of circle */}
-                  <span className="text-emerald-400 text-sm font-mono">
+                  <span className="text-emerald-400 text-[0.6rem] sm:text-sm font-mono">
                     {cpuCores > 0 ? cpuCores : "N/A"}
                   </span>
                 </div>
               </div>
               
-              <div className="w-px h-8 bg-emerald-500/20"></div>
+              <div className="w-px h-4 sm:h-8 bg-emerald-500/20 hidden sm:block"></div>
+              <div className="h-px w-6 sm:hidden bg-emerald-500/20"></div> {/* Horizontal separator for mobile */}
 
-              <div className="text-center">
-                <div className="text-sm text-gray-400 mb-1">CPU Usage</div>
+              <div className="text-center flex-shrink-0">
+                <div className="text-[0.6rem] sm:text-sm text-gray-400 mb-0.5 sm:mb-1">CPU Usage</div>
                 <motion.div 
                   key={cpuUsage}
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
-                  className="text-emerald-400 text-sm font-mono"
+                  className="text-emerald-400 text-[0.6rem] sm:text-sm font-mono"
                 >
                   {cpuUsage}%
                 </motion.div>
               </div>
 
-              <div className="w-px h-8 bg-emerald-500/20"></div>
+              <div className="w-px h-4 sm:h-8 bg-emerald-500/20 hidden sm:block"></div>
+              <div className="h-px w-6 sm:hidden bg-emerald-500/20"></div> {/* Horizontal separator for mobile */}
               
-              <div className="text-center">
-                <div className="text-sm text-gray-400 mb-1">Memory</div>
+              <div className="text-center flex-shrink-0">
+                <div className="text-[0.6rem] sm:text-sm text-gray-400 mb-0.5 sm:mb-1">Memory</div>
                 <motion.div 
                   key={memory}
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
-                  className="text-emerald-400 text-sm font-mono"
+                  className="text-emerald-400 text-[0.6rem] sm:text-sm font-mono"
                 >
                   {memory}
                 </motion.div>
               </div>
 
-              <div className="w-px h-8 bg-emerald-500/20"></div>
+              <div className="w-px h-4 sm:h-8 bg-emerald-500/20 hidden sm:block"></div>
+              <div className="h-px w-6 sm:hidden bg-emerald-500/20"></div> {/* Horizontal separator for mobile */}
               
-              <div className="text-center">
-                <div className="text-sm text-gray-400 mb-1">Processes</div>
+              <div className="text-center flex-shrink-0">
+                <div className="text-[0.6rem] sm:text-sm text-gray-400 mb-0.5 sm:mb-1">Processes</div>
                 <motion.div 
                   key={processes}
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
-                  className="text-emerald-400 text-sm font-mono"
+                  className="text-emerald-400 text-[0.6rem] sm:text-sm font-mono"
                 >
                   {processes}
                 </motion.div>
@@ -216,7 +219,7 @@ export default function NotFound() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10"
+              className="inline-flex items-center gap-1 sm:gap-2 mb-2 sm:mb-4 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10"
             >
               <motion.div
                 animate={{
@@ -229,7 +232,7 @@ export default function NotFound() {
                 }}
                 className="w-1.5 h-1.5 rounded-full bg-emerald-400"
               />
-              <span className="text-emerald-400 text-xs">Live System Stats</span>
+              <span className="text-emerald-400 text-[0.6rem] sm:text-xs">Live System Stats</span>
             </motion.div>
 
             {/* Action Button */}
@@ -237,10 +240,14 @@ export default function NotFound() {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7 }}
+              className="w-full max-w-xs mx-auto"
             >
-              <GlassButton onClick={handleGoHome}>
+              <GlassButton 
+                onClick={handleGoHome} 
+                className="w-full justify-center"
+              >
                 <Home className="w-4 h-4" />
-                Kembali ke Scheduler
+                <span className="ml-2">Kembali ke Scheduler</span>
               </GlassButton>
             </motion.div>
 
