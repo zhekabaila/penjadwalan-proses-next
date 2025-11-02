@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import Link from 'next/link'
-import { Menu, Home, Cpu, Settings } from 'lucide-react'
+import { Menu, Home, Cpu, Wallpaper } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
@@ -11,7 +11,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 const navItems = [
   { title: 'Home', href: '/', icon: Home },
   { title: 'Fitur', href: '/scheduler', icon: Cpu },
-  { title: 'Preview', href: '/settings', icon: Settings }
+  { title: 'Visualization', href: '/visualization', icon: Wallpaper }
 ]
 
 export function NavigationMenuDemo() {
