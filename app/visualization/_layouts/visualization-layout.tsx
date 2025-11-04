@@ -1,76 +1,46 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Trash2 } from 'lucide-react'
 import { useState } from 'react'
-
-interface Process {
-  id: string
-  name: string
-  burstTime: number
-  turnaroundTime?: number
-  waitingTime?: number
-}
-
-const DEFAULT_PROCESSES: Process[] = [
-  { id: '1', name: 'A', burstTime: 8 },
-  { id: '2', name: 'B', burstTime: 3 },
-  { id: '3', name: 'C', burstTime: 5 },
-  { id: '4', name: 'D', burstTime: 9 }
-]
-
-const ALGORITHMS = [
-  {
-    id: 'fcfs',
-    name: 'First Come First Serve',
-    shortName: 'FCFS'
-  },
-  {
-    id: 'sjf',
-    name: 'Shortest Job First',
-    shortName: 'SJF'
-  },
-  {
-    id: 'rr',
-    name: 'Round Robin',
-    shortName: 'Round Robin'
-  }
-] as const
-
-interface AlgorithmStateValues {
-  sjf?: {
-    ganttChart?: Process[]
-    table?: Process[]
-    averageWaitingTime?: number
-    averageTurnaroundTime?: number
-  }
-  fcfs?: {
-    ganttChart?: Process[]
-    table?: Process[]
-    averageWaitingTime?: number
-    averageTurnaroundTime?: number
-  }
-  rr?: {
-    ganttChart?: Process[]
-    table?: Process[]
-    averageWaitingTime?: number
-    averageTurnaroundTime?: number
-  }
-}
+import { AlgorithmStateValues, Process } from '../types'
+import { DEFAULT_PROCESSES } from '../_constants'
+import ProcessForm from '../_components/process-form'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { processSchema } from '@/schemas/process'
+import z from 'zod'
+import FCFSProcess from '../_components/fcfs-process'
+import SJFProcess from '../_components/sjf-process'
+import RRProcess from '../_components/rr-process'
+import { GlassButton } from '@/components/ui/glass-button'
 
 const VisualizationLayout = () => {
-  const [process, setProcess] = useState<Process[]>(DEFAULT_PROCESSES)
+  const form = useForm<z.infer<typeof processSchema>>({
+    resolver: zodResolver(processSchema),
+    defaultValues: {
+      process: DEFAULT_PROCESSES
+    }
+  })
+
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<string[]>(['fcfs', 'sjf', 'rr'])
   const [kwantan, setKwantan] = useState<number>(5)
+
+  const [showResults, setShowResults] = useState<boolean>(false)
 
   //? Algorithm State
   const [algorithmState, setAlgorithmState] = useState<AlgorithmStateValues>({})
 
-  const handleProcessChange = (id: string, field: keyof Process, value: string | number) => {
-    setProcess((prevProcesses) => prevProcesses.map((p) => (p.id === id ? { ...p, [field]: value } : p)))
+  const handleAddProcess = () => {
+    const currentProcess = form.getValues('process')
+    form.setValue('process', [...currentProcess, { id: Date.now().toString(), name: '', burstTime: 0 }])
+  }
+
+  const handleRemoveProcess = (id: string) => {
+    const currentProcess = form.getValues('process')
+    form.setValue(
+      'process',
+      currentProcess.filter((proc) => proc.id !== id)
+    )
   }
 
   const isAlgorithmSelected = (id: string) => selectedAlgorithm.includes(id)
@@ -88,19 +58,20 @@ const VisualizationLayout = () => {
   }
 
   const handleVisualizationStart = () => {
+    const process = form.getValues('process')
     // Logic to start the visualization based on selected processes and algorithms
     console.log('Starting visualization with:', { process, selectedAlgorithm })
 
     selectedAlgorithm.forEach((algoId) => {
       switch (algoId) {
         case 'fcfs':
-          handleFCFSVisualization()
+          handleFCFSVisualization(process)
           break
         case 'sjf':
-          handleSJFVisualization()
+          handleSJFVisualization(process)
           break
         case 'rr':
-          handleRRVisualization()
+          handleRRVisualization(process)
           break
         default:
           break
@@ -108,7 +79,7 @@ const VisualizationLayout = () => {
     })
   }
 
-  const handleFCFSVisualization = () => {
+  const handleFCFSVisualization = (process: Process[]) => {
     // Logic for FCFS visualization
     const tempProcess = process.map((p) => ({ ...p }))
 
@@ -125,7 +96,7 @@ const VisualizationLayout = () => {
     }))
   }
 
-  const handleRRVisualization = () => {
+  const handleRRVisualization = (process: Process[]) => {
     // Logic for Round Robin visualization
 
     console.log('Starting Round Robin Visualization with kwantan:', kwantan, process)
@@ -217,7 +188,7 @@ const VisualizationLayout = () => {
     console.log('Round Robin Table:', tableData)
   }
 
-  const handleSJFVisualization = () => {
+  const handleSJFVisualization = (process: Process[]) => {
     const tempProcess = process.map((p) => ({ ...p }))
     const sortedProcess = sortingProcessByBurstTime(tempProcess)
     const result = handleCalculateGanttChart(sortedProcess)
@@ -252,258 +223,84 @@ const VisualizationLayout = () => {
   }
 
   return (
-    <div className="my-40 container mx-auto">
-      <h1>Process Visualization</h1>
-      <ul className="flex flex-col gap-2 max-w-[600px]">
-        {process.map((p) => (
-          <li key={p.id} className="grid grid-cols-2 gap-4">
-            <Input
-              defaultValue={p.name}
-              onChange={(event) => {
-                handleProcessChange(p.id, 'name', (event.target as HTMLInputElement).value)
-              }}
-            />
-            <div className="flex items-center gap-2">
-              <Input
-                defaultValue={p.burstTime}
-                type="number"
-                onChange={(event) => {
-                  handleProcessChange(p.id, 'burstTime', Number((event.target as HTMLInputElement).value))
-                }}
-              />
-              <Button
-                variant="destructive"
-                size="icon"
-                onClick={() => setProcess((prev) => prev.filter((proc) => proc.id !== p.id))}>
-                <Trash2 className="" />
-              </Button>
+    <>
+      <ProcessForm
+        open={!showResults}
+        onOpenChange={(open) => setShowResults(!open)}
+        handleAlgorithmToggle={handleAlgorithmToggle}
+        onSubmit={() => {
+          setShowResults(true)
+          handleVisualizationStart()
+        }}
+        isAlgorithmSelected={isAlgorithmSelected}
+        handleAddProcess={handleAddProcess}
+        handleRemoveProcess={handleRemoveProcess}
+        form={form}
+        kwantan={kwantan}
+        setKwantan={setKwantan}
+      />
+      {showResults && (
+        <div className="my-40 container mx-auto">
+          <div className="rounded-xl text-foreground shadow bg-black/20 backdrop-blur-md border border-emerald-500/30 hover:border-emerald-500/50 transition-colors duration-300 overflow-hidden group h-full p-5">
+            <div className="border border-foreground rounded-lg">
+              <Table className="min-w-full max-w-full overflow-x-auto">
+                <TableHeader>
+                  <TableRow className="hover:bg-foreground/5">
+                    <TableHead className="text-foreground text-center">Process Name</TableHead>
+                    <TableHead className="text-foreground text-center">Burst Time</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {(form.watch('process') || []).map((p: Process) => (
+                    <TableRow key={p.id} className="hover:bg-foreground/5">
+                      <TableCell className="text-center">{p.name}</TableCell>
+                      <TableCell>{p.burstTime}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </div>
-          </li>
-        ))}
-        <li>
-          <Button onClick={() => setProcess([...process, { id: Date.now().toString(), name: '', burstTime: 0 }])}>
-            Add New Process +
-          </Button>
-        </li>
-      </ul>
+            <GlassButton
+              className="mt-4"
+              onClick={() => {
+                setShowResults(false)
+              }}>
+              Edit Process
+            </GlassButton>
+          </div>
 
-      <ul className="flex flex-col gap-2 mt-7">
-        {ALGORITHMS.map((algo) => (
-          <li key={algo.id} className="flex items-center gap-2">
-            <Checkbox
-              className="accent-foreground border-foreground"
-              checked={isAlgorithmSelected(algo.id)}
-              onCheckedChange={() => {
-                handleAlgorithmToggle(algo.id)
-              }}
-            />
-            <div className="flex flex-col gap-px">
-              <p className="font-medium">{algo.shortName}</p>
-              <p className="text-sm font-light">{algo.name}</p>
-            </div>
-            {algo.id === 'rr' && isAlgorithmSelected('rr') && (
-              <Input
-                className="w-20 ml-4"
-                type="number"
-                value={kwantan}
-                onChange={(e) => setKwantan(Number((e.target as HTMLInputElement).value))}
-                placeholder="Kwantan"
+          {/* Visualization Results */}
+          <div className="grid grid-cols-1 gap-8 mt-10">
+            {selectedAlgorithm.includes('fcfs') && algorithmState.fcfs && (
+              <FCFSProcess
+                ganttChart={algorithmState.fcfs.ganttChart || []}
+                table={algorithmState.fcfs.table || []}
+                averageTurnaroundTime={algorithmState.fcfs.averageTurnaroundTime || 0}
+                averageWaitingTime={algorithmState.fcfs.averageWaitingTime || 0}
               />
             )}
-          </li>
-        ))}
-      </ul>
 
-      <div className="mt-7">
-        <Button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault()
-            handleVisualizationStart()
-          }}>
-          Start Visualization
-        </Button>
-      </div>
+            {selectedAlgorithm.includes('sjf') && algorithmState.sjf && (
+              <SJFProcess
+                ganttChart={algorithmState.sjf.ganttChart || []}
+                table={algorithmState.sjf.table || []}
+                averageTurnaroundTime={algorithmState.sjf.averageTurnaroundTime || 0}
+                averageWaitingTime={algorithmState.sjf.averageWaitingTime || 0}
+              />
+            )}
 
-      {/* Visualization Results */}
-      <div className="grid grid-cols-1 gap-8 mt-10">
-        {selectedAlgorithm.includes('fcfs') && algorithmState.fcfs && (
-          <div className="border border-foreground p-2">
-            <h2>FCFS Visualization</h2>
-            <div className="mt-3">
-              <h3>Gantt Chart</h3>
-              <div
-                className="grid m-6"
-                style={{
-                  gridTemplateColumns: `repeat(${algorithmState.fcfs.ganttChart?.length || 1}, minmax(0, 1fr))`
-                }}>
-                {algorithmState.fcfs.ganttChart?.map((p: Process, index: number) => (
-                  <div
-                    key={index}
-                    className="relative border border-foreground p-4 flex flex-col items-center justify-center">
-                    {index === 0 && <div className="absolute -bottom-7 -left-2">0</div>}
-                    <div className="absolute -bottom-7 -right-2">{p.turnaroundTime}</div>
-                    <p className="font-bold">{p.name}</p>
-                    <p>Burst Time: {p.burstTime}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-14">
-              <h3>Table</h3>
-              <div className="grid m-6">
-                <Table className="min-w-full max-w-full overflow-x-auto">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Process</TableHead>
-                      <TableHead>Burst Time</TableHead>
-                      <TableHead>Waiting Time</TableHead>
-                      <TableHead>Turnaround Time</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {algorithmState.fcfs.table?.map((p: Process) => (
-                      <TableRow key={p.id}>
-                        <TableCell>{p.name}</TableCell>
-                        <TableCell>{p.burstTime}</TableCell>
-                        <TableCell>{p.waitingTime}</TableCell>
-                        <TableCell>{p.turnaroundTime}</TableCell>
-                      </TableRow>
-                    ))}
-                    <TableRow>
-                      <TableCell className="font-bold" colSpan={2}>
-                        Rata-rata
-                      </TableCell>
-                      <TableCell className="font-bold">{algorithmState.fcfs.averageWaitingTime?.toFixed(2)}</TableCell>
-                      <TableCell className="font-bold">{algorithmState.fcfs.averageTurnaroundTime?.toFixed(2)}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </div>
-            </div>
+            {selectedAlgorithm.includes('rr') && algorithmState.rr && (
+              <RRProcess
+                ganttChart={algorithmState.rr.ganttChart || []}
+                table={algorithmState.rr.table || []}
+                averageTurnaroundTime={algorithmState.rr.averageTurnaroundTime || 0}
+                averageWaitingTime={algorithmState.rr.averageWaitingTime || 0}
+              />
+            )}
           </div>
-        )}
-
-        {selectedAlgorithm.includes('sjf') && algorithmState.sjf && (
-          <div className="border border-foreground p-2">
-            <h2>SJF Visualization</h2>
-            <div className="mt-3">
-              <h3>Gantt Chart</h3>
-              <div
-                className="grid m-6"
-                style={{
-                  gridTemplateColumns: `repeat(${algorithmState.sjf.ganttChart?.length || 1}, minmax(0, 1fr))`
-                }}>
-                {algorithmState.sjf.ganttChart?.map((p: Process, index: number) => (
-                  <div
-                    key={index}
-                    className="relative border border-foreground p-4 flex flex-col items-center justify-center">
-                    {index === 0 && <div className="absolute -bottom-7 -left-2">0</div>}
-                    <div className="absolute -bottom-7 -right-2">{p.turnaroundTime}</div>
-                    <p className="font-bold">{p.name}</p>
-                    <p>Burst Time: {p.burstTime}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-14">
-              <h3>Table</h3>
-              <div className="grid m-6">
-                <Table className="min-w-full max-w-full overflow-x-auto">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Process</TableHead>
-                      <TableHead>Burst Time</TableHead>
-                      <TableHead>Waiting Time</TableHead>
-                      <TableHead>Turnaround Time</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {algorithmState.sjf.table
-                      ?.sort((a, b) => a.name.localeCompare(b.name))
-                      .map((p: Process) => (
-                        <TableRow key={p.id}>
-                          <TableCell>{p.name}</TableCell>
-                          <TableCell>{p.burstTime}</TableCell>
-                          <TableCell>{p.waitingTime}</TableCell>
-                          <TableCell>{p.turnaroundTime}</TableCell>
-                        </TableRow>
-                      ))}
-                    <TableRow>
-                      <TableCell className="font-bold" colSpan={2}>
-                        Rata-rata
-                      </TableCell>
-                      <TableCell className="font-bold">{algorithmState.sjf.averageWaitingTime?.toFixed(2)}</TableCell>
-                      <TableCell className="font-bold">{algorithmState.sjf.averageTurnaroundTime?.toFixed(2)}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {selectedAlgorithm.includes('rr') && algorithmState.rr && (
-          <div className="border border-foreground p-2">
-            <h2>Round Robin Visualization</h2>
-            <div className="mt-3">
-              <h3>Gantt Chart</h3>
-              <div
-                className="grid m-6"
-                style={{
-                  gridTemplateColumns: `repeat(${algorithmState.rr.ganttChart?.length || 1}, minmax(0, 1fr))`
-                }}>
-                {algorithmState.rr.ganttChart?.map((p: Process, index: number) => (
-                  <div
-                    key={index}
-                    className="relative border border-foreground p-4 flex flex-col items-center justify-center">
-                    {index === 0 && <div className="absolute -bottom-7 -left-2">0</div>}
-                    <div className="absolute -bottom-7 -right-2">{p.turnaroundTime}</div>
-                    <p className="font-bold">{p.name}</p>
-                    <p>Burst Time: {p.burstTime}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-14">
-              <h3>Table</h3>
-              <div className="grid m-6">
-                <Table className="min-w-full max-w-full overflow-x-auto">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Process</TableHead>
-                      <TableHead>Burst Time</TableHead>
-                      <TableHead>Waiting Time</TableHead>
-                      <TableHead>Turnaround Time</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {algorithmState.rr.table?.map((p: Process) => (
-                      <TableRow key={p.id}>
-                        <TableCell>{p.name}</TableCell>
-                        <TableCell>{p.burstTime}</TableCell>
-                        <TableCell>{p.waitingTime}</TableCell>
-                        <TableCell>{p.turnaroundTime}</TableCell>
-                      </TableRow>
-                    ))}
-                    <TableRow>
-                      <TableCell className="font-bold" colSpan={2}>
-                        Rata-rata
-                      </TableCell>
-                      <TableCell className="font-bold">{algorithmState.rr.averageWaitingTime?.toFixed(2)}</TableCell>
-                      <TableCell className="font-bold">{algorithmState.rr.averageTurnaroundTime?.toFixed(2)}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   )
 }
 
