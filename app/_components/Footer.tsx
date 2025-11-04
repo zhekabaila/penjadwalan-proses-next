@@ -13,7 +13,7 @@ export default function Footer() {
             <Link href="/" className="flex flex-col items-center md:items-start space-y-2">
               <span className="font-bold text-xl text-white">CPU Scheduler</span>
               <p className="text-gray-400 text-sm max-w-xs">
-                Visualize and understand different CPU scheduling algorithms used in operating systems
+                Visualisasikan dan pahami berbagai algoritma penjadwalan CPU yang digunakan dalam sistem operasi
               </p>
             </Link>
           </div>
@@ -21,7 +21,7 @@ export default function Footer() {
           {/* GitHub Link */}
           <div>
             <Link 
-              href="https://github.com" 
+              href="https://github.com/zhekabaila/penjadwalan-proses-next/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center text-gray-300 hover:text-emerald-400 transition-colors duration-300"
