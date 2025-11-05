@@ -92,30 +92,32 @@ const VisualizationModal = ({
               </TableHeader>
               <TableBody>
                 {currentFlowStep.length > 0 ? (
-                  currentFlowStep.map((flowProcess: Flow) => (
-                    <TableRow key={flowProcess.id} className="hover:bg-foreground/5">
-                      <TableCell className="text-center font-semibold">{flowProcess.name}</TableCell>
-                      <TableCell className="text-center">
-                        {process.find((p) => p.id === flowProcess.id)?.burstTime || 0}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <span className={cn(flowProcess.currentBurstTime === 0 && 'text-green-500 font-bold')}>
-                          {flowProcess.currentBurstTime}
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <span
-                          className={cn(
-                            'px-3 py-1 rounded-full text-xs font-semibold',
-                            flowProcess.status === 'done'
-                              ? 'bg-green-500/20 text-green-500'
-                              : 'bg-yellow-500/20 text-yellow-500'
-                          )}>
-                          {flowProcess.status === 'done' ? 'Done' : 'Waiting'}
-                        </span>
-                      </TableCell>
-                    </TableRow>
-                  ))
+                  [...currentFlowStep]
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((flowProcess: Flow) => (
+                      <TableRow key={flowProcess.id} className="hover:bg-foreground/5">
+                        <TableCell className="text-center font-semibold">{flowProcess.name}</TableCell>
+                        <TableCell className="text-center">
+                          {process.find((p) => p.id === flowProcess.id)?.burstTime || 0}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <span className={cn(flowProcess.currentBurstTime === 0 && 'text-green-500 font-bold')}>
+                            {flowProcess.currentBurstTime}
+                          </span>
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <span
+                            className={cn(
+                              'px-3 py-1 rounded-full text-xs font-semibold',
+                              flowProcess.status === 'done'
+                                ? 'bg-green-500/20 text-green-500'
+                                : 'bg-yellow-500/20 text-yellow-500'
+                            )}>
+                            {flowProcess.status === 'done' ? 'Done' : 'Waiting'}
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))
                 ) : (
                   <TableRow>
                     <TableCell colSpan={4} className="text-center text-muted-foreground">
