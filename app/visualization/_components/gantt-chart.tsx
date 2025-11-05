@@ -21,7 +21,7 @@ const GanttChart = ({ data }: IProps) => {
           {index === 0 && <div className="absolute -bottom-7 -left-2">0</div>}
           <div className="absolute -bottom-7 -right-2">{p.turnaroundTime}</div>
           <p className="font-bold text-xs">{p.name}</p>
-          <p className="text-xs">Burst Time: {p.burstTime}</p>
+          <p className="text-xs">BT: {p.burstTime}</p>
         </div>
       ))}
     </div>
