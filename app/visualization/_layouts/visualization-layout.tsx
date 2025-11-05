@@ -245,14 +245,13 @@ const VisualizationLayout = () => {
 
   const handleSJFVisualization = (process: Process[]) => {
     const tempProcess = process.map((p) => ({ ...p }))
-    const sortedProcess = sortingProcessByBurstTime(tempProcess)
-    const result = handleCalculateGanttChart(sortedProcess, 'sjf')
+    const result = handleCalculateGanttChart(tempProcess, 'sjf')
+    const sortedProcess = sortingProcessByBurstTime(result)
 
-    console.log('Sorted Process for SJF:', result)
     setAlgorithmState((prev) => ({
       ...prev,
       sjf: {
-        ganttChart: result,
+        ganttChart: sortedProcess,
         table: result,
         averageWaitingTime: result.reduce((acc, p) => acc + (p.waitingTime || 0), 0) / result.length,
         averageTurnaroundTime: result.reduce((acc, p) => acc + (p.turnaroundTime || 0), 0) / result.length
