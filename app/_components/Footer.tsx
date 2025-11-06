@@ -1,21 +1,25 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Github } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-white/10 bg-black/10 backdrop-blur-md supports-[backdrop-filter]:bg-black/5">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 w-full">
           {/* Logo */}
           <div className="text-center md:text-left">
             <Link href="/" className="flex flex-col items-center md:items-start space-y-2">
-              <span className="font-bold text-xl text-white">CPU Scheduler</span>
+              <div className="flex items-center space-x-2 mb-2">
+                <Image src="/images/logo.webp" alt="TurboSched Logo" width={24} height={24} className="h-6 w-6"/>
+                <span className="font-bold text-xl text-white">TurboSched</span>
+              </div>
+            </Link>
               <p className="text-gray-400 text-sm max-w-xs">
                 Visualisasikan dan pahami berbagai algoritma penjadwalan CPU yang digunakan dalam sistem operasi
               </p>
-            </Link>
           </div>
 
           {/* GitHub Link */}
@@ -33,7 +37,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-white/10 text-center text-gray-400 text-sm">
-          <p>© {new Date().getFullYear()} CPU Scheduler Visualization. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} TurboSched Visualization. All rights reserved.</p>
         </div>
       </div>
     </footer>
