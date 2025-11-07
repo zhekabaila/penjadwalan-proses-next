@@ -71,27 +71,27 @@ export function DemoProcessTable({ algorithm }: DemoProcessTableProps) {
   return (
     <div className="overflow-x-auto rounded-xl border border-border/30 p-4 bg-background/30 backdrop-blur-sm">
       <Table>
-        <TableCaption>{data.caption}</TableCaption>
+        <TableCaption className="text-foreground/80">{data.caption}</TableCaption>
         <TableHeader>
-          <TableRow className="hover:bg-transparent border-white/20">
-            <TableHead className="text-white">Process</TableHead>
-            <TableHead className="text-white">Burst Time</TableHead>
-            <TableHead className="text-white">Waiting Time</TableHead>
-            <TableHead className="text-white">Turnaround Time</TableHead>
+          <TableRow className="hover:bg-transparent border-border">
+            <TableHead className="text-foreground">Process</TableHead>
+            <TableHead className="text-foreground">Burst Time</TableHead>
+            <TableHead className="text-foreground">Waiting Time</TableHead>
+            <TableHead className="text-foreground">Turnaround Time</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data.processes.map((p) => (
-            <TableRow key={p.name} className="hover:bg-white/5 border-white/20">
-              <TableCell className="font-medium">{p.name}</TableCell>
-              <TableCell>{p.burstTime}</TableCell>
-              <TableCell>{p.waitingTime}</TableCell>
-              <TableCell>{p.turnaroundTime}</TableCell>
+            <TableRow key={p.name} className="hover:bg-accent border-border">
+              <TableCell className="font-medium text-foreground">{p.name}</TableCell>
+              <TableCell className="text-foreground">{p.burstTime}</TableCell>
+              <TableCell className="text-foreground">{p.waitingTime}</TableCell>
+              <TableCell className="text-foreground">{p.turnaroundTime}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <div className="mt-4 flex justify-end gap-x-8 text-sm font-medium pr-4">
+      <div className="mt-4 flex justify-end gap-x-8 text-sm font-medium pr-4 text-foreground">
         <span>Avg. Waiting Time: {data.avgWaitingTime.toFixed(2)}</span>
         <span>Avg. Turnaround Time: {data.avgTurnaroundTime.toFixed(2)}</span>
       </div>

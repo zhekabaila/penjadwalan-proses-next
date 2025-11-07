@@ -1,5 +1,6 @@
 import { HeroSection } from '../_components/HeroSection'
-import FeatureSection from '../_components/FeatureSection'
+import { AboutSection } from '../_components/AboutSection'
+import FeatureSection from '../_components/FeatureSection' // Assuming this is the correct import for FeatureSection
 import TheorySection from '../_components/TheorySection'
 import DemoSection from '../_components/DemoSection'
 import FaqSection from '../_components/FaqSection'
@@ -7,7 +8,8 @@ import FaqSection from '../_components/FaqSection'
 export default function LandingPage() {
   return (
     <div>
-      <HeroSection />
+      <HeroSection /> {/* Assuming HeroSection is correctly imported */}
+      <AboutSection /> {/* Corrected component name */}
       <FeatureSection />
       <TheorySection />
       <DemoSection />

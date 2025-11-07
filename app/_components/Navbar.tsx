@@ -4,17 +4,17 @@ import { useState } from 'react'
 import * as React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, Home, Cpu, Wallpaper } from 'lucide-react'
+import { Menu } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 const navItems = [
-  { title: 'Home', href: '/', icon: Home },
-  { title: 'Feature', href: '/scheduler', icon: Cpu },
-  { title: 'Preview', href: '/preview', icon: Cpu},
-  { title: 'Visualization', href: '/visualization', icon: Wallpaper }
+  { title: 'Home', href: '/' },
+  { title: 'About', href: '/#about' },
+  { title: 'Feature', href: '/#features' },
+  { title: 'Demo', href: '/#demo' },
 ]
 
 export function NavigationMenuDemo() {
@@ -36,16 +36,36 @@ export function NavigationMenuDemo() {
         {/* Desktop Navigation - Hidden on mobile */}
         <nav className="hidden md:flex items-center space-x-1">
           {navItems.map((item) => {
-            const Icon = item.icon
+            const isExternalLink = !item.href.startsWith('/#');
+            const handleClick = (e: React.MouseEvent) => {
+              if (item.href === '/') return; // Don't scroll for Home
+              
+              if (!isExternalLink && typeof window !== 'undefined') {
+                e.preventDefault();
+                const targetId = item.href.split('#')[1];
+                if (targetId) {
+                  const targetElement = document.getElementById(targetId);
+                  if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                      behavior: 'smooth',
+                      block: 'start'
+                    });
+                    // Update URL hash without causing a page reload
+                    window.history.pushState({}, '', item.href);
+                  }
+                }
+              }
+            };
+            
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={handleClick}
                 className={cn(
                   buttonVariants({ variant: 'ghost' }),
-                  'text-white hover:text-emerald-500 hover:bg-white/10 px-4 py-2 flex items-center'
+                  'text-white hover:text-emerald-500 hover:bg-white/10 px-4 py-2'
                 )}>
-                <Icon className="mr-2 h-4 w-4" />
                 <span>{item.title}</span>
               </Link>
             )
@@ -68,17 +88,37 @@ export function NavigationMenuDemo() {
                 </Link>
                 <nav className="flex flex-col space-y-1 px-4">
                   {navItems.map((item) => {
-                    const Icon = item.icon
+                    const isExternalLink = !item.href.startsWith('/#');
+                    const handleClick = (e: React.MouseEvent) => {
+                      if (item.href === '/') return; // Don't scroll for Home
+                      
+                      if (!isExternalLink && typeof window !== 'undefined') {
+                        e.preventDefault();
+                        const targetId = item.href.split('#')[1];
+                        if (targetId) {
+                          const targetElement = document.getElementById(targetId);
+                          if (targetElement) {
+                            targetElement.scrollIntoView({ 
+                              behavior: 'smooth',
+                              block: 'start'
+                            });
+                            // Update URL hash without causing a page reload
+                            window.history.pushState({}, '', item.href);
+                          }
+                        }
+                      }
+                      setIsOpen(false); // Close the mobile menu after click
+                    };
+                    
                     return (
                       <Link
                         key={item.href}
                         href={item.href}
                         className={cn(
                           buttonVariants({ variant: 'ghost' }),
-                          'text-white hover:text-emerald-500 hover:bg-white/10 justify-start px-4 py-3 text-lg rounded-lg flex items-center'
+                          'text-white hover:text-emerald-500 hover:bg-white/10 justify-start px-4 py-3 text-lg rounded-lg'
                         )}
-                        onClick={() => setIsOpen(false)}>
-                        <Icon className="h-5 w-5" />
+                        onClick={handleClick}>
                         <span>{item.title}</span>
                       </Link>
                     )
