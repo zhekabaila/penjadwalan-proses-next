@@ -11,7 +11,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 const navItems = [
-  { title: 'Home', href: '/' },
+  { title: 'Home', href: '/#home' },
   { title: 'About', href: '/#about' },
   { title: 'Feature', href: '/#features' },
   { title: 'Demo', href: '/#demo' },
@@ -38,15 +38,13 @@ export function NavigationMenuDemo() {
           {navItems.map((item) => {
             const isExternalLink = !item.href.startsWith('/#');
             const handleClick = (e: React.MouseEvent) => {
-              if (item.href === '/') return; // Don't scroll for Home
-              
               if (!isExternalLink && typeof window !== 'undefined') {
                 e.preventDefault();
                 const targetId = item.href.split('#')[1];
                 if (targetId) {
                   const targetElement = document.getElementById(targetId);
                   if (targetElement) {
-                    targetElement.scrollIntoView({ 
+                    targetElement.scrollIntoView({
                       behavior: 'smooth',
                       block: 'start'
                     });
@@ -56,7 +54,7 @@ export function NavigationMenuDemo() {
                 }
               }
             };
-            
+
             return (
               <Link
                 key={item.href}
@@ -90,15 +88,13 @@ export function NavigationMenuDemo() {
                   {navItems.map((item) => {
                     const isExternalLink = !item.href.startsWith('/#');
                     const handleClick = (e: React.MouseEvent) => {
-                      if (item.href === '/') return; // Don't scroll for Home
-                      
                       if (!isExternalLink && typeof window !== 'undefined') {
                         e.preventDefault();
                         const targetId = item.href.split('#')[1];
                         if (targetId) {
                           const targetElement = document.getElementById(targetId);
                           if (targetElement) {
-                            targetElement.scrollIntoView({ 
+                            targetElement.scrollIntoView({
                               behavior: 'smooth',
                               block: 'start'
                             });
@@ -109,7 +105,7 @@ export function NavigationMenuDemo() {
                       }
                       setIsOpen(false); // Close the mobile menu after click
                     };
-                    
+
                     return (
                       <Link
                         key={item.href}
