@@ -69,11 +69,11 @@ export function DemoProcessTable({ algorithm }: DemoProcessTableProps) {
   const data = precomputedData[algorithm]
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-border/30 p-4 bg-background/30 backdrop-blur-sm">
+    <div className="overflow-x-auto rounded-xl border border-emerald-500/30 p-4 bg-background/30 backdrop-blur-sm">
       <Table>
         <TableCaption className="text-foreground/80">{data.caption}</TableCaption>
         <TableHeader>
-          <TableRow className="hover:bg-transparent border-border">
+          <TableRow className="hover:bg-transparent border-emerald-500/30">
             <TableHead className="text-foreground">Process</TableHead>
             <TableHead className="text-foreground">Burst Time</TableHead>
             <TableHead className="text-foreground">Waiting Time</TableHead>
@@ -82,7 +82,7 @@ export function DemoProcessTable({ algorithm }: DemoProcessTableProps) {
         </TableHeader>
         <TableBody>
           {data.processes.map((p) => (
-            <TableRow key={p.name} className="hover:bg-accent border-border">
+            <TableRow key={p.name} className="hover:bg-accent border-emerald-500/30">
               <TableCell className="font-medium text-foreground">{p.name}</TableCell>
               <TableCell className="text-foreground">{p.burstTime}</TableCell>
               <TableCell className="text-foreground">{p.waitingTime}</TableCell>
