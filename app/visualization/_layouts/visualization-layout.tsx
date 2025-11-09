@@ -347,20 +347,20 @@ const VisualizationLayout = () => {
       />
       {showResults && (
         <div className="my-40 container mx-auto">
-          <div className="rounded-xl text-foreground shadow bg-black/20 backdrop-blur-md border border-emerald-500/30 hover:border-emerald-500/50 transition-colors duration-300 overflow-hidden group h-full p-5">
-            <div className="border border-foreground rounded-lg">
+          <div className="rounded-xl text-white shadow bg-black/20 backdrop-blur-md border border-emerald-500/30 hover:border-emerald-500/50 transition-colors duration-300 overflow-hidden group h-full p-5">
+            <div className="border border-emerald-500/30 rounded-lg">
               <Table className="min-w-full max-w-full overflow-x-auto">
                 <TableHeader>
-                  <TableRow className="hover:bg-foreground/5">
-                    <TableHead className="text-foreground text-center">Process Name</TableHead>
-                    <TableHead className="text-foreground text-center">Burst Time</TableHead>
+                  <TableRow className="hover:bg-emerald-950/30 border-emerald-500/30">
+                    <TableHead className="text-emerald-400 font-semibold text-center">Process Name</TableHead>
+                    <TableHead className="text-emerald-400 font-semibold text-center">Burst Time</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {(form.watch('process') || []).map((p: Process) => (
-                    <TableRow key={p.id} className="hover:bg-foreground/5">
-                      <TableCell className="text-center">{p.name}</TableCell>
-                      <TableCell>{p.burstTime}</TableCell>
+                    <TableRow key={p.id} className="hover:bg-emerald-950/30 border-emerald-500/30">
+                      <TableCell className="text-center text-white">{p.name}</TableCell>
+                      <TableCell className="text-center text-gray-200">{p.burstTime}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

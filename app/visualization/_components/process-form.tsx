@@ -117,15 +117,15 @@ const ProcessForm = ({
               {ALGORITHMS.map((algo) => (
                 <li key={algo.id} className="flex items-center gap-2">
                   <Checkbox
-                    className="accent-foreground border-foreground"
+                    className="accent-emerald-400 border-emerald-500"
                     checked={isAlgorithmSelected(algo.id)}
                     onCheckedChange={() => {
                       handleAlgorithmToggle(algo.id)
                     }}
                   />
                   <div className="flex flex-col gap-px">
-                    <p className="font-medium">{algo.shortName}</p>
-                    <p className="text-sm font-light">{algo.name}</p>
+                    <p className="font-medium text-white">{algo.shortName}</p>
+                    <p className="text-sm font-light text-gray-300">{algo.name}</p>
                   </div>
                   {algo.id === 'rr' && isAlgorithmSelected('rr') && (
                     <Input
@@ -151,7 +151,7 @@ const ProcessForm = ({
               Cancel
             </Button> */}
               <GlassButton className="w-full sm:w-auto flex items-center gap-2" type="submit">
-                <Play className="w-4 h-4 text-foreground" />
+                <Play className="w-4 h-4 text-white" />
                 Start
               </GlassButton>
             </AlertDialogFooter>
