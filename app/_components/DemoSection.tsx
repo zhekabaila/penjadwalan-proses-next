@@ -11,9 +11,6 @@ export default function DemoSection() {
     { value: 'roundrobin', label: 'Round Robin' },
   ]
 
-  const tabTriggerClassName =
-    'flex w-full items-start gap-2 rounded-lg border border-transparent bg-transparent px-4 py-3 text-left text-sm font-semibold text-foreground transition-all duration-200 hover:border-border/60 hover:bg-muted/40 data-[state=active]:border-emerald-500/30 data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:text-foreground'
-
   return (
     <motion.section
       id="demo"
@@ -48,7 +45,11 @@ export default function DemoSection() {
             <div className="relative -mx-4 overflow-x-auto pb-4 md:mx-0 p-2 sm:p-0">
               <TabsList className="grid h-auto w-full min-w-max grid-cols-1 gap-3 rounded-xl border border-emerald-500/30 bg-card/70 p-1 backdrop-blur-sm sm:auto-cols-fr sm:grid-flow-col sm:p-2">
                 {tabs.map((tab) => (
-                  <TabsTrigger key={tab.value} value={tab.value} className={tabTriggerClassName}>
+                  <TabsTrigger 
+                    key={tab.value} 
+                    value={tab.value} 
+                    className="flex w-full items-start gap-2 rounded-lg border border-transparent bg-transparent px-4 py-3 text-left text-sm font-semibold text-foreground transition-all duration-200 hover:border-border/60 hover:bg-muted/40 data-[state=active]:border-emerald-500/30 data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:text-foreground"
+                  >
                     <span className="text-base font-semibold">{tab.label}</span>
                   </TabsTrigger>
                 ))}
