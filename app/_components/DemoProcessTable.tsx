@@ -69,29 +69,29 @@ export function DemoProcessTable({ algorithm }: DemoProcessTableProps) {
   const data = precomputedData[algorithm]
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-emerald-500/30 p-4 bg-background/30 backdrop-blur-sm">
+    <div className="overflow-x-auto rounded-xl border border-emerald-500/30 p-4 bg-black/20 backdrop-blur-sm">
       <Table>
-        <TableCaption className="text-foreground/80">{data.caption}</TableCaption>
+        <TableCaption className="text-gray-300">{data.caption}</TableCaption>
         <TableHeader>
           <TableRow className="hover:bg-transparent border-emerald-500/30">
-            <TableHead className="text-foreground">Process</TableHead>
-            <TableHead className="text-foreground">Burst Time</TableHead>
-            <TableHead className="text-foreground">Waiting Time</TableHead>
-            <TableHead className="text-foreground">Turnaround Time</TableHead>
+            <TableHead className="text-emerald-400 font-semibold">Process</TableHead>
+            <TableHead className="text-emerald-400 font-semibold">Burst Time</TableHead>
+            <TableHead className="text-emerald-400 font-semibold">Waiting Time</TableHead>
+            <TableHead className="text-emerald-400 font-semibold">Turnaround Time</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data.processes.map((p) => (
-            <TableRow key={p.name} className="hover:bg-accent border-emerald-500/30">
-              <TableCell className="font-medium text-foreground">{p.name}</TableCell>
-              <TableCell className="text-foreground">{p.burstTime}</TableCell>
-              <TableCell className="text-foreground">{p.waitingTime}</TableCell>
-              <TableCell className="text-foreground">{p.turnaroundTime}</TableCell>
+            <TableRow key={p.name} className="hover:bg-emerald-950/30 border-emerald-500/30 transition-colors">
+              <TableCell className="font-medium text-white">{p.name}</TableCell>
+              <TableCell className="text-gray-200">{p.burstTime}</TableCell>
+              <TableCell className="text-gray-200">{p.waitingTime}</TableCell>
+              <TableCell className="text-gray-200">{p.turnaroundTime}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <div className="mt-4 flex justify-end gap-x-8 text-sm font-medium pr-4 text-foreground">
+      <div className="mt-4 flex justify-end gap-x-8 text-sm font-medium pr-4 text-gray-200">
         <span>Avg. Waiting Time: {data.avgWaitingTime.toFixed(2)}</span>
         <span>Avg. Turnaround Time: {data.avgTurnaroundTime.toFixed(2)}</span>
       </div>

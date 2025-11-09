@@ -80,14 +80,14 @@ const VisualizationModal = ({
         </AlertDialogHeader>
 
         <div className="flex flex-col gap-10">
-          <div className="border border-foreground rounded-lg">
+          <div className="border border-emerald-500/30 rounded-lg">
             <Table className="min-w-full max-w-full overflow-x-auto">
               <TableHeader>
-                <TableRow className="hover:bg-foreground/5">
-                  <TableHead className="text-foreground text-center">Process Name</TableHead>
-                  <TableHead className="text-foreground text-center">Original Burst Time</TableHead>
-                  <TableHead className="text-foreground text-center">Current Burst Time</TableHead>
-                  <TableHead className="text-foreground text-center">Status</TableHead>
+                <TableRow className="hover:bg-emerald-950/30 border-emerald-500/30">
+                  <TableHead className="text-emerald-400 font-semibold text-center">Process Name</TableHead>
+                  <TableHead className="text-emerald-400 font-semibold text-center">Original Burst Time</TableHead>
+                  <TableHead className="text-emerald-400 font-semibold text-center">Current Burst Time</TableHead>
+                  <TableHead className="text-emerald-400 font-semibold text-center">Status</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -95,12 +95,12 @@ const VisualizationModal = ({
                   [...currentFlowStep]
                     .sort((a, b) => a.name.localeCompare(b.name))
                     .map((flowProcess: Flow) => (
-                      <TableRow key={flowProcess.id} className="hover:bg-foreground/5">
-                        <TableCell className="text-center font-semibold">{flowProcess.name}</TableCell>
-                        <TableCell className="text-center">
+                      <TableRow key={flowProcess.id} className="hover:bg-emerald-950/30 border-emerald-500/30">
+                        <TableCell className="text-center font-semibold text-white">{flowProcess.name}</TableCell>
+                        <TableCell className="text-center text-gray-200">
                           {process.find((p) => p.id === flowProcess.id)?.burstTime || 0}
                         </TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className="text-center text-gray-200">
                           <span className={cn(flowProcess.currentBurstTime === 0 && 'text-green-500 font-bold')}>
                             {flowProcess.currentBurstTime}
                           </span>
@@ -120,7 +120,7 @@ const VisualizationModal = ({
                     ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={4} className="text-center text-muted-foreground">
+                    <TableCell colSpan={4} className="text-center text-gray-400">
                       No data available for this step
                     </TableCell>
                   </TableRow>
@@ -138,39 +138,39 @@ const VisualizationModal = ({
                 <div
                   key={index}
                   className={cn(
-                    'relative border border-foreground p-4 flex flex-col items-center justify-center transition-opacity duration-500 ease-in-out',
+                    'relative border border-emerald-500/50 bg-emerald-950/30 p-4 flex flex-col items-center justify-center transition-opacity duration-500 ease-in-out',
                     index + 1 > currentStepVisualization && 'opacity-5'
                   )}
                   style={{ gridColumn: `span ${p.burstTime}` }}>
                   <div
                     className={cn(
-                      'absolute -top-36 bg-[#032b23] rounded-md border border-foreground font-bold w-max p-4 transition-opacity duration-500 ease-in-out',
+                      'absolute -top-36 bg-[#032b23] rounded-md border border-emerald-500/50 font-bold w-max p-4 transition-opacity duration-500 ease-in-out',
                       currentStepVisualization === index + 1 ? 'opacity-100' : 'opacity-0'
                     )}>
                     <div className="relative">
                       <div className="absolute -bottom-14 left-1/2 -translate-x-1/2">
-                        <ArrowDown className="animate-bounce  w-6 h-6 text-foreground" />
+                        <ArrowDown className="animate-bounce w-6 h-6 text-emerald-400" />
                       </div>
-                      <ul className="flex flex-col gap-1 text-xs">
+                      <ul className="flex flex-col gap-1 text-xs text-white">
                         <li>Waiting Time: {p.waitingTime}</li>
                         <li>Burst Time: {p.burstTime}</li>
                         <li>Turnaround Time: {p.turnaroundTime}</li>
                       </ul>
                     </div>
                   </div>
-                  {index === 0 && <div className="absolute -bottom-7 -left-2">0</div>}
-                  <div className="absolute -bottom-7 -right-2">{p.turnaroundTime}</div>
-                  <p className="font-bold text-xs">{p.name}</p>
-                  <p className="text-xs">BT: {p.burstTime}</p>
+                  {index === 0 && <div className="absolute -bottom-7 -left-2 text-gray-300">0</div>}
+                  <div className="absolute -bottom-7 -right-2 text-gray-300">{p.turnaroundTime}</div>
+                  <p className="font-bold text-xs text-white">{p.name}</p>
+                  <p className="text-xs text-gray-300">BT: {p.burstTime}</p>
                 </div>
               ))}
             </div>
             <div className="flex justify-center items-center gap-2 pt-5">
               <GlassButton className="gap-2" disabled={currentStepVisualization <= 0} onClick={() => onPreviousStep()}>
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-4 h-4 text-white" />
                 Previous
               </GlassButton>
-              <span className="text-sm text-muted-foreground">
+              <span className="text-sm text-gray-300">
                 Step {currentStepVisualization} / {processFlow.length > 0 ? processFlow.length - 1 : 0}
               </span>
               <GlassButton
@@ -178,7 +178,7 @@ const VisualizationModal = ({
                 disabled={currentStepVisualization >= (processFlow.length > 0 ? processFlow.length - 1 : 0)}
                 onClick={() => onNextStep()}>
                 Next
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4 text-white" />
               </GlassButton>
             </div>
           </div>
