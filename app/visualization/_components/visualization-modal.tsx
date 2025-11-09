@@ -20,8 +20,6 @@ interface Flow extends Process {
 interface IProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  onFinish: () => void
-  step: number
   currentStepVisualization: number
   onPreviousStep: () => void
   onNextStep: () => void
@@ -38,10 +36,8 @@ const VisualizationModal = ({
   open,
   onOpenChange,
   ganttChart,
-  onFinish,
   onNextStep,
   onPreviousStep,
-  step,
   currentStepVisualization,
   process = [],
   table,
@@ -52,13 +48,9 @@ const VisualizationModal = ({
   const totalBurstTime = process.reduce((acc, p) => acc + p.burstTime, 0)
   const currentFlowStep = processFlow[currentStepVisualization] || []
 
-  console.log('Current Flow Step:', currentFlowStep)
-
-  console.log({ ganttChart, process, table, step, currentStepVisualization, onFinish, processFlow, currentFlowStep })
-
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="sm:max-w-6xl w-full mx-auto space-y-4 bg-[#0b1d28] border-4 border-[#032b23] min-h-[600px] max-h-[700px] overflow-y-auto">
+      <AlertDialogContent className="sm:max-w-6xl w-full mx-auto space-y-4 bg-[#0b1d28] border-4 border-[#032b23] min-h-[600px] max-h-[85vh] overflow-y-auto">
         <button
           className="hidden sm:block absolute top-6 right-6"
           onClick={() => {
@@ -67,10 +59,10 @@ const VisualizationModal = ({
           <X />
         </button>
         <AlertDialogHeader>
-          <AlertDialogTitle>
+          <AlertDialogTitle className="m-0 p-0">
             Visualisasi Process - Step {currentStepVisualization} of {processFlow.length > 0 ? processFlow.length - 1 : 0}
           </AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription className="m-0 p-0">
             {currentStepVisualization === 0
               ? 'Initial state - All processes are waiting'
               : `Step ${currentStepVisualization}: ${
@@ -105,7 +97,7 @@ const VisualizationModal = ({
                             {flowProcess.currentBurstTime}
                           </span>
                         </TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className="text-center w-[150px]">
                           <span
                             className={cn(
                               'px-3 py-1 rounded-full text-xs font-semibold',
@@ -151,10 +143,13 @@ const VisualizationModal = ({
                       <div className="absolute -bottom-14 left-1/2 -translate-x-1/2">
                         <ArrowDown className="animate-bounce w-6 h-6 text-emerald-400" />
                       </div>
-                      <ul className="flex flex-col gap-1 text-xs text-white">
-                        <li>Waiting Time: {p.waitingTime}</li>
-                        <li>Burst Time: {p.burstTime}</li>
-                        <li>Turnaround Time: {p.turnaroundTime}</li>
+                      <ul className="grid grid-cols-3 gap-3 text-xs text-white">
+                        <li className="col-span-2">Waiting Time</li>
+                        <li>: {p.waitingTime}</li>
+                        <li className="col-span-2">Burst Time</li>
+                        <li>: {p.burstTime}</li>
+                        <li className="col-span-2">Turnaround Time</li>
+                        <li>: {p.turnaroundTime}</li>
                       </ul>
                     </div>
                   </div>
@@ -182,13 +177,12 @@ const VisualizationModal = ({
               </GlassButton>
             </div>
           </div>
-          {currentStepVisualization === processFlow.length - 1 && (
-            <ProcessTable
-              averageWaitingTime={averageWaitingTime}
-              averageTurnaroundTime={averageTurnaroundTime}
-              data={table}
-            />
-          )}
+          <ProcessTable
+            averageWaitingTime={averageWaitingTime}
+            averageTurnaroundTime={averageTurnaroundTime}
+            data={table}
+            show={currentStepVisualization === processFlow.length - 1}
+          />
         </div>
       </AlertDialogContent>
     </AlertDialog>
