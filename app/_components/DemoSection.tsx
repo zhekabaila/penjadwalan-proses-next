@@ -28,10 +28,10 @@ export default function DemoSection() {
           viewport={{ once: false, amount: 0.6 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <h2 className="text-3xl font-bold text-foreground md:text-4xl">
+          <h2 className="text-3xl font-bold text-white md:text-4xl">
             Visualisasi Algoritma Penjadwalan Proses
           </h2>
-          <p className="mt-4 text-base text-muted-foreground md:text-lg">
+          <p className="mt-4 text-base text-gray-300 md:text-lg">
             Eksplorasi interaktif hasil simulasi TurboSched untuk berbagai strategi antrian proses.
           </p>
         </motion.div>
@@ -43,12 +43,12 @@ export default function DemoSection() {
         >
           <Tabs defaultValue="fcfs" className="mx-auto mt-12 w-full max-w-5xl">
             <div className="relative -mx-4 overflow-x-auto pb-4 md:mx-0 p-2 sm:p-0">
-              <TabsList className="grid h-auto w-full min-w-max grid-cols-1 gap-3 rounded-xl border border-emerald-500/30 bg-card/70 p-1 backdrop-blur-sm sm:auto-cols-fr sm:grid-flow-col sm:p-2">
+              <TabsList className="grid h-auto w-full min-w-max grid-cols-1 gap-3 rounded-xl border border-emerald-500/30 bg-black/20 p-1 backdrop-blur-sm sm:auto-cols-fr sm:grid-flow-col sm:p-2">
                 {tabs.map((tab) => (
                   <TabsTrigger 
                     key={tab.value} 
                     value={tab.value} 
-                    className="flex w-full items-start gap-2 rounded-lg border border-transparent bg-transparent px-4 py-3 text-left text-sm font-semibold text-foreground transition-all duration-200 hover:border-border/60 hover:bg-muted/40 data-[state=active]:border-emerald-500/30 data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:text-foreground"
+                    className="flex w-full items-start gap-2 rounded-lg border border-transparent bg-transparent px-4 py-3 text-left text-sm font-semibold text-gray-300 transition-all duration-200 hover:border-emerald-500/50 hover:bg-emerald-950/40 hover:text-white data-[state=active]:border-emerald-500/50 data-[state=active]:bg-emerald-950/60 data-[state=active]:shadow-sm data-[state=active]:text-emerald-400"
                   >
                     <span className="text-base font-semibold">{tab.label}</span>
                   </TabsTrigger>
