@@ -35,7 +35,6 @@ const VisualizationLayout = () => {
   })
 
   const [startVisualization, setStartVisualization] = useState<boolean>(false)
-  const [visualizationStep, setVisualizationStep] = useState<number>(0)
   const [currentStepVisualization, setCurrentStepVisualization] = useState<number>(1)
   const [visualizationAlgorithm, setVisualizationAlgorithm] = useState<'fcfs' | 'sjf' | 'rr'>('fcfs')
   const [processFlow, setProcessFlow] = useState<ProcessFlow>({})
@@ -78,8 +77,6 @@ const VisualizationLayout = () => {
   const handleVisualizationStart = () => {
     const process = form.getValues('process')
     // Logic to start the visualization based on selected processes and algorithms
-    console.log('Starting visualization with:', { process, selectedAlgorithm })
-
     selectedAlgorithm.forEach((algoId) => {
       switch (algoId) {
         case 'fcfs':
@@ -115,10 +112,6 @@ const VisualizationLayout = () => {
   }
 
   const handleRRVisualization = (process: Process[]) => {
-    // Logic for Round Robin visualization
-
-    console.log('Starting Round Robin Visualization with kwantan:', kwantan, process)
-
     // Simpan burst time asli untuk perhitungan akhir
     const originalBurstTimes = new Map(process.map((p) => [p.id, p.burstTime]))
 
@@ -237,10 +230,6 @@ const VisualizationLayout = () => {
         averageTurnaroundTime: avgTurnaroundTime
       }
     }))
-
-    console.log('Round Robin Gantt Chart:', ganttChart)
-    console.log('Round Robin Table:', tableData)
-    console.log('Round Robin Flow Steps:', flowSteps)
   }
 
   const handleSJFVisualization = (process: Process[]) => {
@@ -257,7 +246,6 @@ const VisualizationLayout = () => {
         averageTurnaroundTime: result.reduce((acc, p) => acc + (p.turnaroundTime || 0), 0) / result.length
       }
     }))
-    console.log('Sorted SJF Process:', result)
   }
 
   const handleCalculateGanttChart = (processParams: Process[], algorithm: 'fcfs' | 'sjf' | 'rr'): Process[] => {
@@ -302,10 +290,8 @@ const VisualizationLayout = () => {
     return processFlow
   }
 
-  console.log('Process Flow State:', processFlow)
-
   return (
-    <>
+    <div className="min-h-screen">
       <VisualizationModal
         open={startVisualization}
         onOpenChange={(open) => setStartVisualization(open)}
@@ -313,11 +299,6 @@ const VisualizationLayout = () => {
         averageWaitingTime={algorithmState[visualizationAlgorithm]?.averageWaitingTime || 0}
         ganttChart={algorithmState[visualizationAlgorithm]?.ganttChart || []}
         table={algorithmState[visualizationAlgorithm]?.table || []}
-        onFinish={() => {
-          setStartVisualization(false)
-          setVisualizationStep(0)
-          setCurrentStepVisualization(0)
-        }}
         onNextStep={() => {
           setCurrentStepVisualization((prev) => prev + 1)
         }}
@@ -326,7 +307,6 @@ const VisualizationLayout = () => {
         }}
         process={form.getValues('process')}
         processFlow={processFlow[visualizationAlgorithm] || []}
-        step={visualizationStep}
         currentStepVisualization={currentStepVisualization}
         algorithm={visualizationAlgorithm}
       />
@@ -384,7 +364,6 @@ const VisualizationLayout = () => {
                 averageTurnaroundTime={algorithmState.fcfs.averageTurnaroundTime || 0}
                 averageWaitingTime={algorithmState.fcfs.averageWaitingTime || 0}
                 onClickVisualize={() => {
-                  setVisualizationStep((processFlow.fcfs?.length || 1) - 1)
                   setVisualizationAlgorithm('fcfs')
                   setCurrentStepVisualization(0)
                   setStartVisualization(true)
@@ -399,7 +378,6 @@ const VisualizationLayout = () => {
                 averageTurnaroundTime={algorithmState.sjf.averageTurnaroundTime || 0}
                 averageWaitingTime={algorithmState.sjf.averageWaitingTime || 0}
                 onClickVisualize={() => {
-                  setVisualizationStep((processFlow.sjf?.length || 1) - 1)
                   setVisualizationAlgorithm('sjf')
                   setCurrentStepVisualization(0)
                   setStartVisualization(true)
@@ -414,7 +392,6 @@ const VisualizationLayout = () => {
                 averageTurnaroundTime={algorithmState.rr.averageTurnaroundTime || 0}
                 averageWaitingTime={algorithmState.rr.averageWaitingTime || 0}
                 onClickVisualize={() => {
-                  setVisualizationStep((processFlow.rr?.length || 1) - 1)
                   setVisualizationAlgorithm('rr')
                   setCurrentStepVisualization(0)
                   setStartVisualization(true)
@@ -424,7 +401,7 @@ const VisualizationLayout = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
