@@ -25,7 +25,7 @@ export function NavigationMenuDemo() {
       <div className="flex h-16 items-center justify-between px-4 sm:px-6">
         {/* Logo - Visible on both mobile and desktop */}
         <Link href="/" className="flex items-center space-x-2">
-          <Image src="/images/logo.webp" alt="TurboSched Logo" width={24} height={24} className="h-6 w-6"/>
+          <Image src="/images/logo.webp" alt="TurboSched Logo" width={512} height={512} quality={100} loading='eager' className="h-6 w-6"/>
           <span className="font-bold text-xl text-white hidden sm:block">TurboSched</span>
           <span className="font-bold text-xl text-white sm:hidden">TurboSched</span>
         </Link>
