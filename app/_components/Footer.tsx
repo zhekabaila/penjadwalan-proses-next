@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="text-center md:text-left">
             <Link href="/" className="flex flex-col items-center md:items-start space-y-2">
               <div className="flex items-center space-x-2 mb-2">
-                <Image src="/images/logo.webp" alt="TurboSched Logo" width={24} height={24} className="h-6 w-6"/>
+                <Image src="/images/logo.webp" alt="TurboSched Logo" width={512} height={512} quality={100} loading='eager' className="h-6 w-6"/>
                 <span className="font-bold text-xl text-white">TurboSched</span>
               </div>
             </Link>
