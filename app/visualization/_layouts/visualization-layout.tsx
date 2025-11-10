@@ -326,7 +326,7 @@ const VisualizationLayout = () => {
         setKwantan={setKwantan}
       />
       {showResults && (
-        <div className="my-40 container mx-auto">
+        <div className="my-40 container mx-auto p-1 sm:p-0">
           <div className="rounded-xl text-white shadow bg-black/20 backdrop-blur-md border border-emerald-500/30 hover:border-emerald-500/50 transition-colors duration-300 overflow-hidden group h-full p-5">
             <div className="border border-emerald-500/30 rounded-lg">
               <Table className="min-w-full max-w-full overflow-x-auto">
