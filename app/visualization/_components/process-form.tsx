@@ -57,8 +57,10 @@ const ProcessForm = ({
           <X />
         </button> */}
         <AlertDialogHeader>
-          <AlertDialogTitle className="m-0 p-0">Enter Process</AlertDialogTitle>
-          <AlertDialogDescription className="m-0 p-0">Add a new process with name and burst time.</AlertDialogDescription>
+          <AlertDialogTitle className="m-0 p-0">Masukkan Proses</AlertDialogTitle>
+          <AlertDialogDescription className="m-0 p-0">
+            Tambahkan proses baru dengan nama dan burst time.
+          </AlertDialogDescription>
         </AlertDialogHeader>
 
         <Form {...form}>
@@ -67,9 +69,9 @@ const ProcessForm = ({
               <Table className="min-w-full max-w-full overflow-x-auto">
                 <TableHeader>
                   <TableRow className="hover:bg-emerald-950/30 border-emerald-500/30">
-                    <TableHead className="text-emerald-400 font-semibold text-center">Process Name</TableHead>
+                    <TableHead className="text-emerald-400 font-semibold text-center">Nama Proses</TableHead>
                     <TableHead className="text-emerald-400 font-semibold text-center">Burst Time</TableHead>
-                    <TableHead className="text-emerald-400 font-semibold text-center w-[100px]">Action</TableHead>
+                    <TableHead className="text-emerald-400 font-semibold text-center w-[100px]">Aksi</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -81,7 +83,7 @@ const ProcessForm = ({
                           name={`process.${index}.name`}
                           render={({ field, fieldState }) => (
                             <FormItem className="space-y-0">
-                              <FormLabel className="sr-only">Process Name</FormLabel>
+                              <FormLabel className="sr-only">Nama Proses</FormLabel>
                               <FormControl>
                                 <Input
                                   {...field}
@@ -143,9 +145,9 @@ const ProcessForm = ({
               </Table>
             </div>
             <div>
-              <GlassButton type="button" onClick={() => handleAddProcess()} className="w-full">
-                <Plus className="w-4 h-4 mr-2" />
-                Add New Process
+              <GlassButton variant="outline" type="button" onClick={() => handleAddProcess()} className="w-full">
+                <Plus className="w-4 h-4 mr-1" />
+                Tambahkan Proses Baru
               </GlassButton>
             </div>
 
