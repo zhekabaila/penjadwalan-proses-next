@@ -7,10 +7,9 @@ import {
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { Play, Plus, Trash2 } from 'lucide-react'
+import { Check, Play, Plus, Trash2 } from 'lucide-react'
 import { ALGORITHMS } from '../_constants'
 import { Input } from '@/components/ui/input'
-import { Checkbox } from '@/components/ui/checkbox'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import z from 'zod'
@@ -18,6 +17,7 @@ import { processSchema } from '@/schemas/process'
 import { UseFormReturn } from 'react-hook-form'
 import { cn } from '@/lib/utils'
 import { GlassButton } from '@/components/ui/glass-button'
+import { Label } from '@/components/ui/label'
 
 interface IProps {
   open: boolean
@@ -149,29 +149,50 @@ const ProcessForm = ({
               </GlassButton>
             </div>
 
-            <ul className="grid grid-cols-2 sm:flex sm:flex-row gap-3 sm:gap-4 mt-2">
+            <ul className="grid grid-cols-3 gap-3 sm:gap-4 mt-2">
               {ALGORITHMS.map((algo) => (
-                <li key={algo.id} className="flex items-start gap-2">
-                  <Checkbox
-                    className="accent-emerald-400 border-emerald-500 mt-1"
-                    checked={isAlgorithmSelected(algo.id)}
-                    onCheckedChange={() => {
-                      handleAlgorithmToggle(algo.id)
-                    }}
-                  />
-                  <div className="flex flex-col gap-px">
-                    <p className="font-semibold text-white">{algo.shortName}</p>
-                    <p className="text-sm font-light text-gray-300">{algo.name}</p>
-                  </div>
-                  {algo.id === 'rr' && isAlgorithmSelected('rr') && (
-                    <Input
-                      className="w-20 ml-4"
-                      type="number"
-                      value={kwantan}
-                      onChange={(e) => setKwantan(Number((e.target as HTMLInputElement).value))}
-                      placeholder="Kwantan"
-                    />
+                <li
+                  key={algo.id}
+                  className={cn(
+                    'relative flex flex-col items-center gap-2 border rounded-lg p-2 cursor-pointer',
+                    isAlgorithmSelected(algo.id)
+                      ? 'bg-emerald-950/30 border-emerald-500/30'
+                      : 'bg-emerald-900/10 border-emerald-500/10'
                   )}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    handleAlgorithmToggle(algo.id)
+                  }}>
+                  <div className="flex items-center justify-center h-4 w-4 shrink-0 rounded-sm border shadow accent-emerald-400 border-emerald-500 mt-1">
+                    {isAlgorithmSelected(algo.id) && <Check className="w-3 h-3 text-emerald-400" />}
+                  </div>
+                  <div className="flex flex-col items-center justify-center h-full gap-3">
+                    <div className="flex flex-col gap-px text-center">
+                      <p className="font-semibold text-white">{algo.shortName}</p>
+                      <p className="text-sm font-light text-gray-300">{algo.name}</p>
+                    </div>
+                    {algo.id === 'rr' && (
+                      <div className="flex items-center gap-4">
+                        <Label className="text-sm text-gray-300">Kwanta:</Label>
+                        <Input
+                          className="w-20 p-px h-auto border-0 border-b border-b-emerald-500/30 bg-transparent focus-visible:ring-0 focus-visible:border-0 focus-visible:border-b focus-visible:border-b-emerald-500 rounded-none"
+                          type="text"
+                          value={kwantan}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            e.preventDefault()
+                          }}
+                          onChange={(e) => {
+                            if (e.target.value === '' || /^[0-9\b]+$/.test(e.target.value)) {
+                              setKwantan(Number((e.target as HTMLInputElement).value))
+                            }
+                          }}
+                          placeholder="Kwantan"
+                        />
+                      </div>
+                    )}
+                  </div>
                 </li>
               ))}
             </ul>

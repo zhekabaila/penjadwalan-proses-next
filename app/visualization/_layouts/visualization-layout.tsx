@@ -156,7 +156,7 @@ const VisualizationLayout = () => {
             name: p.name,
             burstTime: executeTime,
             turnaroundTime: currentTime + executeTime,
-            waitingTime: currentTime + executeTime - (process.find((proc) => proc.id === p.id)?.burstTime || 0)
+            waitingTime: i === 0 ? 0 : currentTime + executeTime - (process.find((proc) => proc.id === p.id)?.burstTime || 0)
           })
 
           // Update waktu dan sisa burst time
