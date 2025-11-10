@@ -75,23 +75,23 @@ export function DemoProcessTable({ algorithm }: DemoProcessTableProps) {
         <TableHeader>
           <TableRow className="hover:bg-transparent border-emerald-500/30">
             <TableHead className="text-emerald-400 font-semibold">Process</TableHead>
-            <TableHead className="text-emerald-400 font-semibold">Burst Time</TableHead>
-            <TableHead className="text-emerald-400 font-semibold">Waiting Time</TableHead>
-            <TableHead className="text-emerald-400 font-semibold">Turnaround Time</TableHead>
+            <TableHead className="text-emerald-400 font-semibold text-center">Burst Time</TableHead>
+            <TableHead className="text-emerald-400 font-semibold text-center">Waiting Time</TableHead>
+            <TableHead className="text-emerald-400 font-semibold text-center">Turnaround Time</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data.processes.map((p) => (
             <TableRow key={p.name} className="hover:bg-emerald-950/30 border-emerald-500/30 transition-colors">
               <TableCell className="font-medium text-white">{p.name}</TableCell>
-              <TableCell className="text-gray-200">{p.burstTime}</TableCell>
-              <TableCell className="text-gray-200">{p.waitingTime}</TableCell>
-              <TableCell className="text-gray-200">{p.turnaroundTime}</TableCell>
+              <TableCell className="text-gray-200 text-center">{p.burstTime}</TableCell>
+              <TableCell className="text-gray-200 text-center">{p.waitingTime}</TableCell>
+              <TableCell className="text-gray-200 text-center">{p.turnaroundTime}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <div className="mt-4 flex justify-end gap-x-8 text-sm font-medium pr-4 text-gray-200">
+      <div className="mt-4 flex justify-end gap-x-8 text-sm font-semibold pr-4 text-emerald-400">
         <span>Avg. Waiting Time: {data.avgWaitingTime.toFixed(2)}</span>
         <span>Avg. Turnaround Time: {data.avgTurnaroundTime.toFixed(2)}</span>
       </div>
