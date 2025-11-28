@@ -332,7 +332,7 @@ const VisualizationLayout = () => {
               <Table className="min-w-full max-w-full overflow-x-auto">
                 <TableHeader>
                   <TableRow className="hover:bg-emerald-950/30 border-emerald-500/30">
-                    <TableHead className="text-emerald-400 font-semibold text-center">Process Name</TableHead>
+                    <TableHead className="text-emerald-400 font-semibold text-center">Nama Proses</TableHead>
                     <TableHead className="text-emerald-400 font-semibold text-center">Burst Time</TableHead>
                   </TableRow>
                 </TableHeader>

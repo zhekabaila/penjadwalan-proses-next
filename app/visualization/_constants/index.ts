@@ -1,6 +1,13 @@
 import { Process } from '../types'
 
 export const DEFAULT_PROCESSES: Process[] = [
+  { id: '1', name: '', burstTime: 0 },
+  { id: '2', name: '', burstTime: 0 },
+  { id: '3', name: '', burstTime: 0 },
+  { id: '4', name: '', burstTime: 0 }
+]
+
+export const DEFAULT_PROCESSES_OLD: Process[] = [
   { id: '1', name: 'A', burstTime: 8 },
   { id: '2', name: 'B', burstTime: 3 },
   { id: '3', name: 'C', burstTime: 5 },
