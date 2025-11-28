@@ -36,7 +36,7 @@ export const processModel = z.object({
 
 export const processSchema = z
   .object({
-    process: z.array(processModel).default([])
+    process: z.array(processModel).min(1)
   })
   .superRefine((data, ctx) => {
     const names = data.process.map((p) => p.name.toLowerCase())

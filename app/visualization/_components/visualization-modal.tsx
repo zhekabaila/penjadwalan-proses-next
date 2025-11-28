@@ -60,12 +60,12 @@ const VisualizationModal = ({
         </button>
         <AlertDialogHeader>
           <AlertDialogTitle className="m-0 p-0">
-            Visualisasi Process - Step {currentStepVisualization} of {processFlow.length > 0 ? processFlow.length - 1 : 0}
+            Proses Visualisasi - Langkah {currentStepVisualization} dari {processFlow.length > 0 ? processFlow.length - 1 : 0}
           </AlertDialogTitle>
           <AlertDialogDescription className="m-0 p-0">
             {currentStepVisualization === 0
-              ? 'Initial state - All processes are waiting'
-              : `Step ${currentStepVisualization}: ${
+              ? 'Menginisialisasi Proses - Semua proses waiting'
+              : `Langkah ${currentStepVisualization}: ${
                   currentFlowStep.find((p) => p.status === 'done' && p.currentBurstTime === 0)?.name || 'Processing'
                 } completed`}
           </AlertDialogDescription>
@@ -76,7 +76,7 @@ const VisualizationModal = ({
             <Table className="min-w-full max-w-full overflow-x-auto">
               <TableHeader>
                 <TableRow className="hover:bg-emerald-950/30 border-emerald-500/30">
-                  <TableHead className="text-emerald-400 font-semibold text-center">Process Name</TableHead>
+                  <TableHead className="text-emerald-400 font-semibold text-center">Nama Proses</TableHead>
                   <TableHead className="text-emerald-400 font-semibold text-center">Original Burst Time</TableHead>
                   <TableHead className="text-emerald-400 font-semibold text-center">Current Burst Time</TableHead>
                   <TableHead className="text-emerald-400 font-semibold text-center">Status</TableHead>
@@ -163,16 +163,16 @@ const VisualizationModal = ({
             <div className="flex justify-center items-center gap-2 pt-5">
               <GlassButton className="gap-2" disabled={currentStepVisualization <= 0} onClick={() => onPreviousStep()}>
                 <ChevronLeft className="w-4 h-4 text-white" />
-                Previous
+                Sebelumnya
               </GlassButton>
               <span className="text-sm text-gray-300">
-                Step {currentStepVisualization} / {processFlow.length > 0 ? processFlow.length - 1 : 0}
+                Langkah {currentStepVisualization} / {processFlow.length > 0 ? processFlow.length - 1 : 0}
               </span>
               <GlassButton
                 className="gap-2"
                 disabled={currentStepVisualization >= (processFlow.length > 0 ? processFlow.length - 1 : 0)}
                 onClick={() => onNextStep()}>
-                Next
+                Selanjutnya
                 <ChevronRight className="w-4 h-4 text-white" />
               </GlassButton>
             </div>

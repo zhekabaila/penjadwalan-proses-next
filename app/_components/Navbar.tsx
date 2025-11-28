@@ -10,9 +10,9 @@ import { buttonVariants } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 const navItems = [
-  { title: 'Home', href: '/#home' },
-  { title: 'About', href: '/#about' },
-  { title: 'Feature', href: '/#features' },
+  { title: 'Beranda', href: '/#home' },
+  { title: 'Tentang', href: '/#about' },
+  { title: 'Fitur', href: '/#features' },
   { title: 'Demo', href: '/#demo' }
 ]
 
